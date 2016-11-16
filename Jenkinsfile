@@ -19,7 +19,7 @@ def scm() {
 
 }
 
-// Verify the source code and downloading the dependencies to test and run the application.
+// Verify the source code, download and install the dependencies to run and test the application.
 def build() {
 	
 	sh 'echo jenkins | sudo -S npm install'
