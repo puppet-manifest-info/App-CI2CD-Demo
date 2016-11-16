@@ -41,7 +41,8 @@ def uploadToNexus() {
 	sh "cd $WORKSPACE && npm publish --registry http://10.12.40.115:8082/nexus/repository/npm-internal/"
 
 }
-// Prepare the environment using Puppet and Download the binary from Nexus repo and deploy on nginc-app-server1.infostretch.com.
+// Prepare the environment using Puppet
+// Download the binary from Nexus repo and deploy on nginc-app-server1.infostretch.com.
 def deployToNginxAppServer1() {
 	
 	node ('nginx-app-server1') {
@@ -55,7 +56,8 @@ def deployToNginxAppServer1() {
 
 }
 
-// Prepare the environment using Puppet and Download the binary from Nexus repo and deploy on nginc-app-serve-2.infostretch.com.
+// Prepare the environment using Puppet
+// Download the binary from Nexus repo and deploy on nginc-app-serve-2.infostretch.com.
 def deployToNginxAppServer2() {
 
 
