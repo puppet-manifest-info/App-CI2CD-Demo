@@ -47,7 +47,10 @@ def uploadToNexus() {
 // provisioning the infrastructure using Puppet
 def ValidateNginxAppServer1() {
 	
-	sh "echo jenkins | sudo -S puppet agent -t"
+	node ('nginx-app-server1') {
+		
+		sh "echo jenkins | sudo -S puppet agent -t"
+	}	
 	
 }
 
@@ -65,9 +68,12 @@ def deployToNginxAppServer1() {
 }
 
 // provisioning the infrastructure using Puppet
-def ValidateNginxAppServer1() {
+def ValidateNginxAppServer2() {
 	
-	sh "echo jenkins | sudo -S puppet agent -t"
+	node ('nginx-app-server-2') {
+		
+		sh "echo jenkins | sudo -S puppet agent -t"
+	}	
 	
 }
 
