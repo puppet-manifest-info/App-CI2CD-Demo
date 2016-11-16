@@ -6,7 +6,9 @@ node('ILSIEDISON') {
         stage ('Build') { build() }
         stage ('UnitTest') { unitTest() }
         stage ('Upload Artifact 2 Nexus') { uploadToNexus() }
+	stage ('Puppet Validate App-Server-I') {ValidateNginxAppServer1}  
         stage ( 'Deploy 2 App-Server-I') { deployToNginxAppServer1() }
+	stage ('Puppet Validate App-Server-II') {ValidateNginxAppServer2}
         stage ( 'Deploy 2 App-Server-II') { deployToNginxAppServer2() }
         step([$class: 'WsCleanup'])
     }
@@ -34,20 +36,26 @@ def unitTest() {
 	junit '**/test/*.xml'
 }
 
-// Push the binery to the Nexus Repo.
+// Push the binary to the Nexus Repo.
 def uploadToNexus() {
 	
 	sh "sed 's/true/false/g' $WORKSPACE/package.json > $WORKSPACE/package1.json && rm -rf $WORKSPACE/package.json && mv $WORKSPACE/package1.json $WORKSPACE/package.json"
 	sh "cd $WORKSPACE && npm publish --registry http://10.12.40.115:8082/nexus/repository/npm-internal/"
 
 }
-// Prepare the environment using Puppet
+
+// provisioning the infrastructure using Puppet
+def ValidateNginxAppServer1() {
+	
+	sh "echo jenkins | sudo -S puppet agent -t"
+	
+}
+
 // Download the binary from Nexus repo and deploy on nginc-app-server1.infostretch.com.
 def deployToNginxAppServer1() {
 	
 	node ('nginx-app-server1') {
 
-		sh "echo jenkins | sudo -S puppet agent -t"
 		sh "echo jenkins | sudo -S /var/lib/jenkins/app/deploy.sh"
 		step([$class: 'WsCleanup'])
 
@@ -56,14 +64,19 @@ def deployToNginxAppServer1() {
 
 }
 
-// Prepare the environment using Puppet
+// provisioning the infrastructure using Puppet
+def ValidateNginxAppServer1() {
+	
+	sh "echo jenkins | sudo -S puppet agent -t"
+	
+}
+
 // Download the binary from Nexus repo and deploy on nginc-app-serve-2.infostretch.com.
 def deployToNginxAppServer2() {
 
 
 	node ('nginx-app-server-2') {
 
-		sh "echo jenkins | sudo -S puppet agent -t"
 		sh "echo jenkins | sudo -S /var/lib/jenkins/app/deploy.sh"
 		step([$class: 'WsCleanup'])
 
