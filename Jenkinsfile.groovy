@@ -14,8 +14,6 @@ node('ILSIEDISON') {
 
 // Clean the work space and Checkout the source code from Bitbucket
 def scm() {
-	
-	step([$class: 'WsCleanup'])
 
 	checkout([$class: 'GitSCM', branches: [[name: 'cicd']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'd8a89bf0-2e87-4ab1-baae-6d3e476bceb3', url: 'https://rajendraraj@bitbucket.org/is_corp/reception_desk_admin_app.git']]])
 
