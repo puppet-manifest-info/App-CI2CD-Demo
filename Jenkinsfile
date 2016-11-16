@@ -2,7 +2,7 @@ node('ILSIEDISON') {
     timestamps {
         step([$class: 'WsCleanup'])
         sh "ls -lart"
-        stage ('Git Checkout') { scm() }
+        stage ('SCM Checkout') { scm() }
         stage ('Build') { build() }
         stage ('UnitTest') { unitTest() }
         stage ('Upload Artifact 2 Nexus') { uploadToNexus() }
