@@ -50,6 +50,8 @@ def ValidateNginxAppServer1() {
 	node ('nginx-app-server1') {
 		
 		sh "echo jenkins | sudo -S puppet agent -t"
+		step([$class: 'WsCleanup'])
+		
 	}	
 	
 }
@@ -73,6 +75,8 @@ def ValidateNginxAppServer2() {
 	node ('nginx-app-server-2') {
 		
 		sh "echo jenkins | sudo -S puppet agent -t"
+		step([$class: 'WsCleanup'])
+		
 	}	
 	
 }
