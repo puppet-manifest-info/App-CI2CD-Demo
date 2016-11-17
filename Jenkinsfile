@@ -6,9 +6,9 @@ node('ILSIEDISON') {
         stage ('Build') { build() }
         stage ('UnitTest') { unitTest() }
         stage ('Upload Artifact 2 Nexus') { uploadToNexus() }
-	stage ('Puppet Validate App-Server-I') {ValidateNginxAppServer1}  
+	stage ('Puppet Validate App-Server-I') { ValidateNginxAppServer1() }  
         stage ( 'Deploy 2 App-Server-I') { deployToNginxAppServer1() }
-	stage ('Puppet Validate App-Server-II') {ValidateNginxAppServer2}
+	stage ('Puppet Validate App-Server-II') { ValidateNginxAppServer2() }
         stage ( 'Deploy 2 App-Server-II') { deployToNginxAppServer2() }
         step([$class: 'WsCleanup'])
     }
